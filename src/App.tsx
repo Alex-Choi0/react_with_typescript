@@ -1,26 +1,45 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import {Button} from './components/Button/index'
+import CounterManagment from './components/CounterManagemant';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface AppState{
+  change : boolean
 }
+
+class App extends React.Component<{}, AppState> {
+  constructor(props : {}){
+    super(props);
+    this.state = {
+      change : true
+    }
+  }
+
+  clickButton = () => {
+    this.setState({change : !this.state.change})
+  }
+
+  render(): React.ReactNode {
+      const {change} = this.state
+      return(
+        <>
+          <h1>My App</h1>
+          {change?<CounterManagment ownerName="alex" />:null}
+          <button onClick={this.clickButton}>Change</button>
+          <h2>{change?"true":"false"}</h2>
+        </>
+      )
+  }
+}
+
+// function App() {
+//   return (
+//     <>
+//     <h1>My app</h1>
+//     <CounterManagment ownerName='Rysh'/>
+//     </>
+//   );
+// }
 
 export default App;
